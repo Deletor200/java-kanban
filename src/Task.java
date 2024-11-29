@@ -11,11 +11,17 @@ public class Task {
         this.status = status;
     }
 
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public String getDescription() { return description; }
-    public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
+    public int getId() {
+        return id;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -28,7 +34,9 @@ public class Task {
     }
 
     @Override
-    public int hashCode() { return id; }
+    public int hashCode() {
+        return id;
+    }
 
     @Override
     public String toString() {

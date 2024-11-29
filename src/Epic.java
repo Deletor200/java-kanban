@@ -1,20 +1,25 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Epic extends Task {
-    private List<Subtask> subtasks;
+    private final List<Integer> subtaskIds;
 
     public Epic(int id, String name, String description) {
         super(id, name, description, Status.NEW);
-        this.subtasks = new ArrayList<>();
+        this.subtaskIds = new ArrayList<>();
     }
 
-    public List<Subtask> getSubtasks() { return subtasks; }
-    public void addSubtask(Subtask subtask) { subtasks.add(subtask); }
-    public void removeSubtask(Subtask subtask) { subtasks.remove(subtask); }
+    public List<Integer> getSubtaskIds() {
+        return subtaskIds;
+    }
 
-    public void updateStatus() {
-        if (subtasks.isEmpty()) {
+    public void addSubtask(int subtaskId) {
+        subtaskIds.add(subtaskId);
+    }
+
+    public void updateStatus(Map<Integer, Subtask> subtasks) {
+        if (subtaskIds.isEmpty()) {
             status = Status.NEW;
             return;
         }
@@ -22,7 +27,10 @@ public class Epic extends Task {
         boolean allNew = true;
         boolean allDone = true;
 
-        for (Subtask subtask : subtasks) {
+        for (Integer subtaskId : subtaskIds) {
+            Subtask subtask = subtasks.get(subtaskId);
+            if (subtask == null) continue;
+
             if (subtask.getStatus() != Status.NEW) {
                 allNew = false;
             }
@@ -47,7 +55,7 @@ public class Epic extends Task {
                 ", название='" + name + '\'' +
                 ", описание='" + description + '\'' +
                 ", статус=" + status +
-                ", подзадачи=" + subtasks +
+                ", подзадачи=" + subtaskIds +
                 '}';
     }
 }
